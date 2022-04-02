@@ -1,23 +1,25 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Text, ScrollView, RefreshControl} from 'react-native';
+import 'react-native-gesture-handler';
+import React from 'react';
+import {StyleSheet} from 'react-native';
+import Home from './src/screens/Home';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
+
+const Drawer = createDrawerNavigator();
 
 const App = () => {
-
   return (
-    <View style={styles.body}>
-      <Text style={styles.title}>Hello</Text>
-    </View>
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Home" component={Home} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    alignItems:"center",
-    justifyContent:"center"
-  },
-  title: {
-    fontSize: 36,
   },
 });
 
