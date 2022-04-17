@@ -30,6 +30,10 @@ local.properties
 *.iml
 *.hprof
 
+# vscode
+#
+.vscode
+
 # node.js
 #
 node_modules/
