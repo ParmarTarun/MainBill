@@ -1,26 +1,27 @@
-import DATA from './constant';
+import axios from 'axios';
+import BILL_DATA from './constant';
 
-const requestData = () => async dispatch => {
+const requestBillData = () => async dispatch => {
   dispatch({
-    type: DATA.LOAD,
+    type: BILL_DATA.LOAD,
   });
   try {
-    setTimeout(
-      () =>
-        dispatch({
-          type: DATA.LOAD_SUCCESS,
-          data: ['hello', 'world'],
-          isError: false,
-        }),
-      2000,
+    const json = await axios.get(
+      'https://bill-251a9-default-rtdb.firebaseio.com/billsData.json',
     );
-  } catch (e) {
     dispatch({
-      type: DATA.LOAD_SUCCESS,
-      data: [],
+      type: BILL_DATA.LOAD_SUCCESS,
+      billData: json.data.data,
+      isError: false,
+    });
+  } catch (e) {
+    console.log('Error fetching bill data: ' + e);
+    dispatch({
+      type: BILL_DATA.LOAD_SUCCESS,
+      billData: [],
       isError: true,
     });
   }
 };
 
-export {requestData};
+export {requestBillData};

@@ -1,20 +1,20 @@
-import DATA from './constant';
+import BILL_DATA from "./constant";
 
 const initialState = {
-  data: [],
+  billData: [],
   isLoading: false,
   isError: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case DATA.LOAD:
+    case BILL_DATA.LOAD:
       return {
         ...state,
         isLoading: true,
         isError: false,
       };
-    case DATA.LOAD_SUCCESS:
+    case BILL_DATA.LOAD_SUCCESS:
       return {
         ...state,
         billData: action.billData,

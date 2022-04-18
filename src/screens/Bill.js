@@ -1,20 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Pressable, StyleSheet, Text, Linking} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import {useDispatch, useSelector} from 'react-redux';
+import Loader from '../componnets/atoms/loader';
+import {requestBillData} from '../redux/action';
 
 const showCurrentBill = () => {
   Linking.openURL('https://bill-251a9.web.app/?bill=true');
 };
 
 const Bill = () => {
+  const dispatch = useDispatch();
+  const {billData, isLoading} = useSelector(state => state);
+  useEffect(() => {
+    dispatch(requestBillData());
+  }, []);
   return (
     <View style={styles.screen}>
-      <Pressable style={styles.button} onPress={showCurrentBill}>
-        <Text style={styles.text}>
-          Show Current Bill
-          <Icon style={styles.icon} name="external-link" size={24} />
-        </Text>
-      </Pressable>
+      {isLoading && <Loader />}
+      {billData.map((bill,i) => (
+        <Text key={i}>{bill.name}</Text>
+      ))}
+      <View>
+        <Pressable style={styles.button} onPress={showCurrentBill}>
+          <Text style={styles.text}>
+            Show Current Bill
+            <Icon style={styles.icon} name="external-link" size={24} />
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -39,7 +53,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   icon: {
-    padding:10
+    padding: 10,
   },
 });
 
