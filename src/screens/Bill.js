@@ -3,6 +3,7 @@ import {View, Pressable, StyleSheet, Text, Linking} from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import Loader from '../componnets/atoms/loader';
+import BillCardsList from '../componnets/organism/billCardsList';
 import {requestBillData} from '../redux/action';
 
 const showCurrentBill = () => {
@@ -18,9 +19,7 @@ const Bill = () => {
   return (
     <View style={styles.screen}>
       {isLoading && <Loader />}
-      {billData.map((bill,i) => (
-        <Text key={i}>{bill.name}</Text>
-      ))}
+      <BillCardsList data={billData}/>
       <View>
         <Pressable style={styles.button} onPress={showCurrentBill}>
           <Text style={styles.text}>
